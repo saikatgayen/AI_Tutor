@@ -1,24 +1,50 @@
 from ollama import chat
+from datetime import datetime
 
-print("AI Study Helper")
+print("AI TUITOR")
 print("Type 'exit' to quit.\n")
 
-while True:
+conversation = []                                     #----Conversation Memory----
+
+def save_to_file(questions, ansters):                              #--------Save Notes----- 
+	with open("notes.txt", "a", encoding="utf-8") as file:
+		file.write("\n" + "=" * 50 + "\n")
+		file.write(f"Time: {datetime.now()}\n")
+		file.write(f"Question: {questions}\n\n")
+		file.write(f"Answer:{answer}\n\n")
+
+while True:                                           #------Maiin Loop---------
     question = input("Ask a study question: ")
 
     if question.lower() == "exit":
         print("Good luck with your studies! ")
         break
 
+        #ADD user question to memory
+
+    conversation.append({
+		"role": "user",
+		"content": question
+    })
+
+	#send FULL conversation to the model
+
     response = chat(
-        model="llama3",
-        messages=[
-            {"role": "user", "content": question}
-        ]
+        	model="llama3",
+        	messages= conversation
     )
 
     answer = response["message"]["content"]
+
+	# add AI answer to memory
+
+    conversation.append({
+		"role": "assistant",
+		"content": answer
+    })
+
     print("\n Answer:\n")
     print(answer)
     print("\n" + "-" * 147 + "\n")
 
+    save_to_file(question, answer)
