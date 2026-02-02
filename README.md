@@ -62,4 +62,14 @@ This project implements conversational memory to allow the local LLM to understa
 
 <img width="418" height="204" alt="Screenshot 2026-01-19 at 21 11 34" src="https://github.com/user-attachments/assets/fe1ba292-dc28-4010-bc9c-f29a1514e0f1" />
 
+## How to Run
+
+1. Install Ollama and pull LLaMA3:
+   ollama pull llama3
+
+2. Install dependencies:
+   pip install -r requirements.txt
+
+3. Run the assistant:
+   python app.py
 
